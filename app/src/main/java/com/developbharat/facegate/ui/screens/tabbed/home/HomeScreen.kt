@@ -49,6 +49,7 @@ fun HomeScreen() {
             Button(modifier = Modifier.fillMaxWidth(), onClick = {}) { Text("Download Faces") }
             Button(modifier = Modifier.fillMaxWidth(), onClick = {}) { Text("Manage Storage ") }
             Button(modifier = Modifier.fillMaxWidth(), onClick = {}) { Text("Settings") }
+            Button(modifier = Modifier.fillMaxWidth(), onClick = {}) { Text("Select Active Batch") }
         }
     }
 }
