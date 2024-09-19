@@ -37,16 +37,16 @@ fun TabbedBottomBar(navController: NavController) {
         )
 
         NavigationBarItem(
-            selected = navBackStackEntry?.destination?.route?.contains(TabbedScreens.VerificationScreen.toString()) == true,
+            selected = navBackStackEntry?.destination?.route?.contains(TabbedScreens.SelectFaceMatchScreen.toString()) == true,
             onClick = {
-                navController.navigate(TabbedScreens.VerificationScreen) {
+                navController.navigate(TabbedScreens.SelectFaceMatchScreen) {
                     // This keeps only 1 parent screen in back history
                     popUpTo(navController.graph.findStartDestination().id)
                     launchSingleTop = true
                 }
             },
-            icon = { Icon(Icons.Default.Verified, contentDescription = "Verification") },
-            label = { Text("Verification") },
+            icon = { Icon(Icons.Default.Verified, contentDescription = "Face Match") },
+            label = { Text("Face Match") },
             alwaysShowLabel = true
         )
 

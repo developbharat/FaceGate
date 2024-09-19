@@ -36,7 +36,9 @@ fun HomeScreen(navController: NavController) {
             Column(modifier = Modifier.padding(10.dp)) {
                 Button(modifier = Modifier.fillMaxWidth(), onClick = {}) { Text("Download Faces") }
                 Button(modifier = Modifier.fillMaxWidth(), onClick = {}) { Text("Manage Storage ") }
-                Button(modifier = Modifier.fillMaxWidth(), onClick = {}) { Text("Settings") }
+                Button(modifier = Modifier.fillMaxWidth(), onClick = {
+                    navController.navigate(Screens.SettingsScreen)
+                }) { Text("Settings") }
                 Button(modifier = Modifier.fillMaxWidth(), onClick = {
                     navController.navigate(Screens.SetActiveBatchScreen)
                 }) { Text("Select Active Batch") }

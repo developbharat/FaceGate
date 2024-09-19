@@ -2,8 +2,6 @@ package com.developbharat.facegate.ui.screens.batch.set_active
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -14,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import com.developbharat.facegate.ui.components.SmallTopBar
 
 
+// TODO: Remove this screen and put this option in app settings
 @Composable
 fun SetActiveBatchScreen() {
     Scaffold(topBar = {
