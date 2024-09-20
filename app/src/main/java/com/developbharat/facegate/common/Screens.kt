@@ -41,7 +41,7 @@ sealed interface TabbedScreens {
     data class ScanFaceMatchScreen(val person: Person) : Screens {
         companion object {
             val typeMap = mapOf(typeOf<Person>() to serializableType<Person>())
-            fun from(savedStateHandle: SavedStateHandle) = savedStateHandle.toRoute<Person>(typeMap)
+            fun from(savedStateHandle: SavedStateHandle) = savedStateHandle.toRoute<ScanFaceMatchScreen>(typeMap)
         }
     }
 }

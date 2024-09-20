@@ -2,6 +2,7 @@ package com.developbharat.facegate.common
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Base64
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.security.MessageDigest
@@ -71,13 +72,37 @@ fun Long.humanReadableFileSize(): String {
 }
 
 
-fun Bitmap.toThumbnail(width: Int, height: Int): Bitmap {
+fun Bitmap.crop(width: Int = 50, height: Int = 50): Bitmap {
     // crop bitmap
-    val cropped = Bitmap.createScaledBitmap(this, width, height, false)
+    return Bitmap.createScaledBitmap(this, width, height, false)
 
-    // compress to JPEG
+
+}
+
+fun Bitmap.compress(format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, quality: Int = 100): Bitmap {
     val outputStream = ByteArrayOutputStream()
-    cropped.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+    this.compress(format, quality, outputStream)
     val bytes = outputStream.toByteArray()
     return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+}
+
+fun String.toThumbnailBitmap(): Bitmap {
+    // Decode Base64 string back to ByteArray
+    val byteArray = Base64.decode(this, Base64.URL_SAFE)
+    // Convert ByteArray back to Bitmap
+    val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+    return bitmap.crop().compress()
+}
+
+fun Bitmap.toBase64(): String {
+    // Convert Bitmap to ByteArray for serialization
+    val byteArray = this.toByteArray()
+    // Encode ByteArray as a Base64 string to avoid binary issues in JSON
+    return Base64.encodeToString(byteArray, Base64.URL_SAFE)
+}
+
+fun Bitmap.toByteArray(): ByteArray {
+    val stream = ByteArrayOutputStream()
+    this.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+    return stream.toByteArray()
 }

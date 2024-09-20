@@ -15,7 +15,7 @@ class ScanFaceMatchViewModel @Inject constructor(
     private val _state =
         mutableStateOf(
             ScanFaceMatchState(
-                selectedPerson = TabbedScreens.ScanFaceMatchScreen.from(savedStateHandle)
+                selectedPerson = TabbedScreens.ScanFaceMatchScreen.from(savedStateHandle).person
             )
         )
     val state: State<ScanFaceMatchState> = _state

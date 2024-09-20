@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -17,9 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.developbharat.facegate.R
@@ -55,15 +52,16 @@ fun SelectFaceMatchScreen(navController: NavController, viewModel: SelectFaceMat
                         headlineContent = { Text(person.name) },
                         supportingContent = { Text("ID: ${person.id}") },
                         leadingContent = {
-                            Image(
-                                bitmap = person.thumbnail.asImageBitmap(),
-                                modifier = Modifier.size(width = 50.dp, height = 50.dp),
-                                contentDescription = "Person Picture"
-                            )
+//                            Image(
+//                                bitmap = person.thumbnail.asImageBitmap(),
+//                                modifier = Modifier.size(width = 50.dp, height = 50.dp),
+//                                contentDescription = "Person Picture"
+//                            )
                         },
                         trailingContent = {
                             IconButton(onClick = {
                                 navController.navigate(TabbedScreens.ScanFaceMatchScreen(person = person))
+//                                navController.navigate(TabbedScreens.ScanFaceMatchScreen(id = "1"))
                             }) {
                                 Icon(
                                     Icons.Outlined.CameraAlt,
