@@ -15,36 +15,43 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.developbharat.facegate.R
+import com.developbharat.facegate.domain.models.FrameFaceMatchStatus
+import com.developbharat.facegate.common.toThumbnailBitmap
 
 
 @Composable
-fun FaceMatchCard(modifier: Modifier) {
+fun FaceMatchCard(modifier: Modifier, match: FrameFaceMatchStatus) {
     Surface(modifier = modifier) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             horizontalArrangement = Arrangement.spacedBy(5.dp),
             verticalArrangement = Arrangement.Top,
-            modifier = modifier.padding(10.dp).fillMaxSize()
+            modifier = modifier
+                .padding(10.dp)
+                .fillMaxSize()
         ) {
+            /** TODO: Add support for multiple matches **/
             item {
                 Column(modifier = Modifier.fillMaxSize()) {
-                    Text("Name: Jayant Malik")
-                    Text("ID: 13152022")
-                    Text("Match Score: 20")
+                    Text("Name: ${match.person.name}")
+                    Text("ID: ${match.person.id}")
+                    Text("Match Score: ${match.matchScore}")
                 }
             }
+
 
             item {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Image(
                         modifier = Modifier.fillMaxSize(),
-                        painter = painterResource(R.drawable.ic_launcher_foreground),
+                        bitmap = match.person.thumbnail.toThumbnailBitmap().asImageBitmap(),
                         contentScale = ContentScale.FillWidth,
-                        contentDescription = "Person 1 Face Matched"
+                        contentDescription = "${match.person.name} Face Matched"
                     )
 
                     Image(

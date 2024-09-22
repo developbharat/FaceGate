@@ -48,12 +48,12 @@ fun SearchFaceScreen(navController: NavController) {
                     contentDescription = "Artist image"
                 )
 
-                FaceMatchCard(
-                    modifier = Modifier
-                        .height(200.dp)
-                        .fillMaxWidth()
-                        .align(Alignment.BottomCenter)
-                )
+//                FaceMatchCard(
+//                    modifier = Modifier
+//                        .height(200.dp)
+//                        .fillMaxWidth()
+//                        .align(Alignment.BottomCenter),
+//                )
             }
         }
     }
