@@ -14,9 +14,6 @@ import kotlin.reflect.typeOf
 @Serializable
 sealed interface Screens {
     @Serializable
-    data object SetActiveBatchScreen : Screens
-
-    @Serializable
     data object CreateBatchScreen : Screens
 
     @Serializable

@@ -4,9 +4,11 @@ import androidx.camera.core.ImageProxy
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.developbharat.facegate.common.Resource
 import com.developbharat.facegate.domain.uses.attendance.MarkAttendanceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.util.Timer
 import javax.inject.Inject
@@ -21,7 +23,7 @@ class AttendanceViewModel @Inject constructor(
 
 
     fun setIsScanPaused(shallPause: Boolean) {
-        if (state.value.isScanPaused == shallPause) return;
+        if (state.value.isScanPaused == shallPause) return
 
         if (shallPause)
             _state.value = _state.value.copy(isScanPaused = true)
@@ -40,7 +42,7 @@ class AttendanceViewModel @Inject constructor(
             } else {
                 _state.value = _state.value.copy(match = null, status = it.status)
             }
-        }
+        }.launchIn(viewModelScope)
     }
 
 }

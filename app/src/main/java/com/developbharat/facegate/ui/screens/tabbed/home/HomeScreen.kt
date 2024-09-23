@@ -40,10 +40,6 @@ fun HomeScreen(navController: NavController) {
                     navController.navigate(Screens.SettingsScreen)
                 }) { Text("Settings") }
                 Button(modifier = Modifier.fillMaxWidth(), onClick = {
-                    navController.navigate(Screens.SetActiveBatchScreen)
-                }) { Text("Select Active Batch") }
-
-                Button(modifier = Modifier.fillMaxWidth(), onClick = {
                     navController.navigate(Screens.CreateBatchScreen)
                 }) { Text("Create Batch") }
             }

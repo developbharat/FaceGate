@@ -10,7 +10,6 @@ import androidx.navigation.compose.rememberNavController
 import com.developbharat.facegate.common.Screens
 import com.developbharat.facegate.common.TabbedScreens
 import com.developbharat.facegate.ui.screens.batch.create.CreateBatchScreen
-import com.developbharat.facegate.ui.screens.batch.set_active.SetActiveBatchScreen
 import com.developbharat.facegate.ui.screens.settings.SettingsScreen
 import com.developbharat.facegate.ui.screens.tabbed.attendance.AttendanceScreen
 import com.developbharat.facegate.ui.screens.tabbed.facematch.scan.ScanFaceMatchScreen
@@ -42,8 +41,7 @@ class MainActivity : ComponentActivity() {
 
                     // Non Tabbed Screens
                     composable<Screens.SettingsScreen> { SettingsScreen() }
-                    composable<Screens.SetActiveBatchScreen> { SetActiveBatchScreen() }
-                    composable<Screens.CreateBatchScreen> { CreateBatchScreen() }
+                    composable<Screens.CreateBatchScreen> { CreateBatchScreen(navController) }
                 }
             }
         }
