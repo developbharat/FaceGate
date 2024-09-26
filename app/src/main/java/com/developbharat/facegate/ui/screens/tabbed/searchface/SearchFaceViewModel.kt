@@ -29,13 +29,20 @@ class SearchFaceViewModel @Inject constructor(
 
 
     fun searchFaceInCameraFrame(frame: ImageProxy) {
+        if (state.value.isScanPaused || state.value.status.isInProgress) {
+            frame.close()
+            return
+        }
+        
         searchFaceUseCase(frame).onEach {
             if (it is Resource.ResourceSuccess) {
                 _state.value = _state.value.copy(match = it.data, status = it.status, isScanPaused = true)
                 // Pause scan for 2 seconds
                 Timer().schedule(2000) { setIsScanPaused(false) }
+                frame.close()
             } else {
                 _state.value = _state.value.copy(match = null, status = it.status)
+                frame.close()
             }
         }.launchIn(viewModelScope)
     }

@@ -1,6 +1,6 @@
 package com.developbharat.facegate.domain.uses.attendance
 
-import androidx.camera.core.ImageProxy
+import android.graphics.Bitmap
 import com.developbharat.facegate.common.Resource
 import com.developbharat.facegate.domain.models.FrameFaceMatchStatus
 import com.developbharat.facegate.domain.repos.facematch.IFaceMatchRepository
@@ -11,10 +11,10 @@ import javax.inject.Inject
 class MarkAttendanceUseCase @Inject constructor(
     private val matchRepository: IFaceMatchRepository
 ) {
-    operator fun invoke(frame: ImageProxy): Flow<Resource<FrameFaceMatchStatus>> = flow {
+    operator fun invoke(frame: Bitmap): Flow<Resource<FrameFaceMatchStatus>> = flow {
         try {
             emit(Resource.ResourceInProgress("Searching Face..."))
-            val match = matchRepository.markAttendance(frame.toBitmap())
+            val match = matchRepository.markAttendance(frame)
             emit(Resource.ResourceSuccess(match, "Attendance marked."))
         } catch (ex: Exception) {
             emit(Resource.ResourceError(ex.localizedMessage ?: "Unknown Error occurred."))

@@ -2,7 +2,9 @@ package com.developbharat.facegate.common
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.util.Base64
+import androidx.camera.core.ImageProxy
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.security.MessageDigest
@@ -41,29 +43,25 @@ fun Long.humanReadableFileSize(): String {
         this < kiloByteAsByte -> "${this.toDouble()} B"
         this >= kiloByteAsByte && this < megaByteAsByte -> "${
             String.format(
-                Locale.ENGLISH,
-                "%.2f", (this / kiloByteAsByte)
+                Locale.ENGLISH, "%.2f", (this / kiloByteAsByte)
             )
         } KB"
 
         this >= megaByteAsByte && this < gigaByteAsByte -> "${
             String.format(
-                Locale.ENGLISH,
-                "%.2f", (this / megaByteAsByte)
+                Locale.ENGLISH, "%.2f", (this / megaByteAsByte)
             )
         } MB"
 
         this >= gigaByteAsByte && this < teraByteAsByte -> "${
             String.format(
-                Locale.ENGLISH,
-                "%.2f", (this / gigaByteAsByte)
+                Locale.ENGLISH, "%.2f", (this / gigaByteAsByte)
             )
         } GB"
 
         this >= teraByteAsByte && this < petaByteAsByte -> "${
             String.format(
-                Locale.ENGLISH,
-                "%.2f", (this / teraByteAsByte)
+                Locale.ENGLISH, "%.2f", (this / teraByteAsByte)
             )
         } TB"
 
@@ -105,4 +103,10 @@ fun Bitmap.toByteArray(): ByteArray {
     val stream = ByteArrayOutputStream()
     this.compress(Bitmap.CompressFormat.JPEG, 100, stream)
     return stream.toByteArray()
+}
+
+fun ImageProxy.toRotatedBitmap(): Bitmap {
+    val proxy = this
+    val matrix = Matrix().apply { postRotate(proxy.imageInfo.rotationDegrees.toFloat()) }
+    return Bitmap.createBitmap(this.toBitmap(), 0, 0, width, height, matrix, true)
 }

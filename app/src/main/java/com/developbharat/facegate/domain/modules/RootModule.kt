@@ -1,6 +1,9 @@
 package com.developbharat.facegate.domain.modules
 
 import android.content.Context
+import com.developbharat.facegate.domain.ml.FaceNetModel
+import com.developbharat.facegate.domain.ml.IFaceNetModel
+import com.developbharat.facegate.domain.models.settings.GlobalOptions
 import com.developbharat.facegate.domain.repos.batch.BatchRepository
 import com.developbharat.facegate.domain.repos.batch.IBatchRepository
 import com.developbharat.facegate.domain.repos.device.DeviceState
@@ -32,7 +35,14 @@ object RootModule {
 
     @Provides
     @Singleton
-    fun providesFaceMatchRepository(): IFaceMatchRepository {
-        return FaceMatchRepository()
+    fun providesFaceMatchRepository(faceNetModel: IFaceNetModel): IFaceMatchRepository {
+        return FaceMatchRepository(facenetModel = faceNetModel)
+    }
+
+    @Provides
+    @Singleton
+    fun providesFaceNetModel(@ApplicationContext appContext: Context): IFaceNetModel {
+        // TODO: dynamically load global options
+        return FaceNetModel(appContext = appContext, globalOptions = GlobalOptions())
     }
 }

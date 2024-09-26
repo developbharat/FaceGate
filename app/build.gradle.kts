@@ -28,6 +28,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true // enable support for modern apis
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -40,6 +41,9 @@ android {
 }
 
 dependencies {
+    // core library desugaring
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+
     // core androidx + compose
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -91,4 +95,9 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
+
+    // TODO: Replace with custom build of onnxruntime to reduce and optimise performance
+    // https://onnxruntime.ai/docs/build/custom.html
+    // https://onnxruntime.ai/docs/tutorials/mobile/#optimize-your-application
+    implementation(libs.onnxruntime.android)
 }
