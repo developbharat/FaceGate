@@ -1,8 +1,11 @@
 package com.developbharat.facegate.domain.modules
 
 import android.content.Context
+import com.developbharat.facegate.domain.data.ISQLiteDatabase
+import com.developbharat.facegate.domain.data.SQLiteDatabase
 import com.developbharat.facegate.domain.ml.FaceNetModel
 import com.developbharat.facegate.domain.ml.IFaceNetModel
+import com.developbharat.facegate.domain.models.settings.AttendanceSheetOptions
 import com.developbharat.facegate.domain.models.settings.GlobalOptions
 import com.developbharat.facegate.domain.repos.batch.BatchRepository
 import com.developbharat.facegate.domain.repos.batch.IBatchRepository
@@ -35,8 +38,16 @@ object RootModule {
 
     @Provides
     @Singleton
-    fun providesFaceMatchRepository(faceNetModel: IFaceNetModel): IFaceMatchRepository {
-        return FaceMatchRepository(facenetModel = faceNetModel)
+    fun providesFaceMatchRepository(
+        faceNetModel: IFaceNetModel,
+        database: ISQLiteDatabase
+    ): IFaceMatchRepository {
+        // TODO: dynamically load attendance sheet options
+        return FaceMatchRepository(
+            facenetModel = faceNetModel,
+            database = database,
+            attendanceSheetOptions = AttendanceSheetOptions()
+        )
     }
 
     @Provides
@@ -44,5 +55,11 @@ object RootModule {
     fun providesFaceNetModel(@ApplicationContext appContext: Context): IFaceNetModel {
         // TODO: dynamically load global options
         return FaceNetModel(appContext = appContext, globalOptions = GlobalOptions())
+    }
+
+    @Provides
+    @Singleton
+    fun providesSQLiteDatabase(@ApplicationContext appContext: Context): ISQLiteDatabase {
+        return SQLiteDatabase(appContext)
     }
 }

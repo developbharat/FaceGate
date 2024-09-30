@@ -9,7 +9,7 @@ class BatchRepository : IBatchRepository {
     override suspend fun listBatchPeople(): List<Person> {
         return listOf(
             Person(
-                id = "1",
+                id = 1,
                 name = "John Doe",
                 thumbnail = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888).toBase64()
             )

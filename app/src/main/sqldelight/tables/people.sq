@@ -1,0 +1,16 @@
+CREATE TABLE people(
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    uid TEXT NOT NULL,
+    name TEXT NOT NULL,
+    thumbnail_b64 TEXT NOT NULL,
+    created_at INTEGER DEFAULT 'unixepoch()'
+);
+
+insert:
+INSERT INTO people (uid, name, thumbnail_b64) VALUES (:uid, :name, :thumbnail);
+
+update:
+UPDATE people SET uid=:uid, name=:name, thumbnail_b64=:thumbnail WHERE id=:id;
+
+findById:
+SELECT * FROM people WHERE id=:id;

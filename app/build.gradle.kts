@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.hilt.plugin)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlinx.serialization)
+    id("app.cash.sqldelight") version "2.0.2"
 }
 
 android {
@@ -90,14 +91,20 @@ dependencies {
     implementation(libs.androidx.camera.view)
     implementation(libs.androidx.camera.extensions)
 
-    // sqlite database + room db
+    // sqlite database + sqldelight
     implementation(libs.sqlcipher)
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
-    ksp(libs.room.compiler)
+    implementation(libs.sqldelight.android.driver)
 
     // TODO: Replace with custom build of onnxruntime to reduce and optimise performance
     // https://onnxruntime.ai/docs/build/custom.html
     // https://onnxruntime.ai/docs/tutorials/mobile/#optimize-your-application
     implementation(libs.onnxruntime.android)
+}
+
+sqldelight {
+    databases {
+        create("Database") {
+            packageName.set(android.defaultConfig.applicationId)
+        }
+    }
 }

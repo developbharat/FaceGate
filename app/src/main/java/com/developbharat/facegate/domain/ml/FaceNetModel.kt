@@ -91,7 +91,7 @@ class FaceNetModel @Inject constructor(
         val output = ortSession?.run(inputs)
         val processTimeMs = SystemClock.uptimeMillis() - startTime
 
-        val vectors = (output?.get(0)?.value as Array<FloatArray>).first()
+        val vectors = (output?.get(0)?.value as Array<DoubleArray>).first()
         return FaceNetResult(
             vectors = vectors.toList(),
             elapsedMillis = processTimeMs
