@@ -1,4 +1,4 @@
-package com.developbharat.facegate.domain.ml
+package com.developbharat.facegate.domain.ml.facenet
 
 import ai.onnxruntime.OnnxTensor
 import ai.onnxruntime.OrtEnvironment

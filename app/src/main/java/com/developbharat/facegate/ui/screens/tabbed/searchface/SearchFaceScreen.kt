@@ -40,6 +40,7 @@ fun SearchFaceScreen(navController: NavController, viewModel: SearchFaceViewMode
 
     LaunchedEffect(Unit) {
         CameraOptions.frameAnalysisOptions.setAnalyzer(Dispatchers.Default.asExecutor()) { frame ->
+            // detect faces in frame
             viewModel.searchFaceInCameraFrame(frame)
         }
     }

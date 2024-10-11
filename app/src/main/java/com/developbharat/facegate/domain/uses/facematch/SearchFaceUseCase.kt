@@ -1,21 +1,26 @@
 package com.developbharat.facegate.domain.uses.facematch
 
-import androidx.camera.core.ImageProxy
+import android.graphics.Bitmap
 import com.developbharat.facegate.common.Resource
-import com.developbharat.facegate.domain.models.FrameFaceMatchStatus
-import com.developbharat.facegate.domain.repos.facematch.IFaceMatchRepository
+import com.developbharat.facegate.domain.ml.IAIModel
+import com.developbharat.facegate.domain.repos.facedb.IFaceDatabaseRepository
+import com.developbharat.facegate.domain.repos.facedb.PersonFaceData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class SearchFaceUseCase @Inject constructor(
-    val matchRepository: IFaceMatchRepository
+    private val aiModel: IAIModel, private val faceDbRepository: IFaceDatabaseRepository
 ) {
-    operator fun invoke(frame: ImageProxy): Flow<Resource<FrameFaceMatchStatus>> = flow {
+    operator fun invoke(frame: Bitmap): Flow<Resource<PersonFaceData>> = flow {
         try {
             emit(Resource.ResourceInProgress("Searching Face..."))
-            val match = matchRepository.searchFace(frame.toBitmap())
-            emit(Resource.ResourceSuccess(match, "Face found."))
+
+            // detect and calculate face vectors
+            val detection = aiModel.calculateFaceVectors(frame)
+            val face = faceDbRepository.searchFace(detection)
+
+            emit(Resource.ResourceSuccess(face, "Face found."))
         } catch (ex: Exception) {
             emit(Resource.ResourceError(ex.localizedMessage ?: "Unknown Error occurred."))
         }

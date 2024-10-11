@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.developbharat.facegate.common.Resource
+import com.developbharat.facegate.common.toRotatedBitmap
 import com.developbharat.facegate.domain.uses.facematch.SearchFaceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -21,7 +22,6 @@ class SearchFaceViewModel @Inject constructor(
     private val _state = mutableStateOf(SearchFaceState())
     val state: State<SearchFaceState> = _state
 
-
     fun setIsScanPaused(isPaused: Boolean) {
         if (_state.value.isScanPaused == isPaused) return
         _state.value = _state.value.copy(isScanPaused = isPaused)
@@ -33,17 +33,18 @@ class SearchFaceViewModel @Inject constructor(
             frame.close()
             return
         }
-        
-        searchFaceUseCase(frame).onEach {
+
+        searchFaceUseCase(frame.toRotatedBitmap()).onEach {
             if (it is Resource.ResourceSuccess) {
+                // Pause scan and enable after 2 seconds
                 _state.value = _state.value.copy(match = it.data, status = it.status, isScanPaused = true)
-                // Pause scan for 2 seconds
                 Timer().schedule(2000) { setIsScanPaused(false) }
-                frame.close()
             } else {
                 _state.value = _state.value.copy(match = null, status = it.status)
-                frame.close()
             }
+
+            // close frame
+            frame.close()
         }.launchIn(viewModelScope)
     }
 }

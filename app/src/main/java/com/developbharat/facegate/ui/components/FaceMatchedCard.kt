@@ -20,12 +20,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.developbharat.facegate.R
-import com.developbharat.facegate.domain.models.FrameFaceMatchStatus
 import com.developbharat.facegate.common.toThumbnailBitmap
+import com.developbharat.facegate.domain.repos.facedb.PersonFaceData
 
 
 @Composable
-fun FaceMatchCard(modifier: Modifier, match: FrameFaceMatchStatus) {
+fun FaceMatchCard(modifier: Modifier, match: PersonFaceData) {
     Surface(modifier = modifier) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),

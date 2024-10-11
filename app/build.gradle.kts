@@ -95,9 +95,11 @@ dependencies {
     implementation(libs.sqlcipher)
     implementation(libs.sqldelight.android.driver)
 
+    // face detection and face recognition
     // TODO: Replace with custom build of onnxruntime to reduce and optimise performance
     // https://onnxruntime.ai/docs/build/custom.html
     // https://onnxruntime.ai/docs/tutorials/mobile/#optimize-your-application
+    implementation(libs.mlkit.face.detection)
     implementation(libs.onnxruntime.android)
 }
 
