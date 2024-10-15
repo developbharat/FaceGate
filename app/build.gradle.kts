@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.hilt.plugin)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlinx.serialization)
-    id("app.cash.sqldelight") version "2.0.2"
 }
 
 android {
@@ -91,9 +90,9 @@ dependencies {
     implementation(libs.androidx.camera.view)
     implementation(libs.androidx.camera.extensions)
 
-    // sqlite database + sqldelight
+    // sqlite database
     implementation(libs.sqlcipher)
-    implementation(libs.sqldelight.android.driver)
+    implementation(libs.androidx.sqlite)
 
     // face detection and face recognition
     // TODO: Replace with custom build of onnxruntime to reduce and optimise performance
@@ -101,12 +100,4 @@ dependencies {
     // https://onnxruntime.ai/docs/tutorials/mobile/#optimize-your-application
     implementation(libs.mlkit.face.detection)
     implementation(libs.onnxruntime.android)
-}
-
-sqldelight {
-    databases {
-        create("Database") {
-            packageName.set(android.defaultConfig.applicationId)
-        }
-    }
 }

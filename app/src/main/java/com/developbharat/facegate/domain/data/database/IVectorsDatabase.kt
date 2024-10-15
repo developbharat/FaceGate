@@ -1,16 +1,26 @@
 package com.developbharat.facegate.domain.data.database
 
+import com.developbharat.facegate.domain.models.Person
+import com.developbharat.facegate.domain.repos.facedb.PersonFaceData
+
 data class InsertVectorData(
-    val id: String, val name: String, val thumbnail: String, val vectors: Iterable<Float>
+    val id: Int, val name: String, val thumbnail: String, val vectors: Iterable<Float>
 )
 
-data class SearchVectorData(
-    val id: Int, val col1: String, val col2: String, val col3: String, val col4: String, val l2Norm: String
-)
+data class SearchVectorResult(
+    val id: Int,
+    val name: String,
+    val thumbnail: String,
+    val matchScore: Float
+) {
+    fun toPersonFaceData(): PersonFaceData {
+        val person = Person(id = id, name = name, thumbnail = thumbnail)
+        return PersonFaceData(person = person, matchScore = matchScore)
+    }
+}
 
 interface IVectorsDatabase {
-    suspend fun loadDatabase()
-    suspend fun searchVectors(vectors: Iterable<Float>, limit: Int = 2): List<SearchVectorData>
-    suspend fun insertVectors(vectors: InsertVectorData)
+    suspend fun searchVectors(vectors: Iterable<Double>, minThreshold: Int, maxThreshold: Int): List<SearchVectorResult>
+    suspend fun insertVectors(data: InsertVectorData)
     suspend fun deleteVectors(id: Int)
 }

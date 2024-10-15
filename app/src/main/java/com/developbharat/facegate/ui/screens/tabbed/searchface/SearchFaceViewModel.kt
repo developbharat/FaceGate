@@ -34,13 +34,14 @@ class SearchFaceViewModel @Inject constructor(
             return
         }
 
-        searchFaceUseCase(frame.toRotatedBitmap()).onEach {
+        searchFaceUseCase(frame.toRotatedBitmap(), minThreshold = 0, maxThreshold = 100).onEach {
             if (it is Resource.ResourceSuccess) {
                 // Pause scan and enable after 2 seconds
                 _state.value = _state.value.copy(match = it.data, status = it.status, isScanPaused = true)
                 Timer().schedule(2000) { setIsScanPaused(false) }
             } else {
-                _state.value = _state.value.copy(match = null, status = it.status)
+                _state.value = _state.value.copy(match = null, status = it.status, isScanPaused = true)
+                Timer().schedule(2000) { setIsScanPaused(false) }
             }
 
             // close frame

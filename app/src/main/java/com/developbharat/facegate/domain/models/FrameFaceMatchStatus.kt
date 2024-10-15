@@ -5,7 +5,7 @@ data class FrameFaceMatchStatus(
     val matchScore: Double = 0.0,
     val detectionMillis: Long = 0,
 ) {
-    fun toAttendanceRecord(batchId: Long, frame: String): AttendanceSheetRecord {
+    fun toAttendanceRecord(batchId: Int, frame: String): AttendanceSheetRecord {
         return AttendanceSheetRecord(
             personId = person.id,
             batchId = batchId,

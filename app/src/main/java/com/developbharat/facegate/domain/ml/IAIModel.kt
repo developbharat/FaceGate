@@ -7,11 +7,10 @@ data class FaceDetectedData(
 )
 
 data class CalculateVectorsData(
-    val vectors: List<Float> = emptyList(), val elapsedMillis: Long = 0, val trackingId: Int = 0
+    val vectors: List<Double> = emptyList(), val elapsedMillis: Long = 0, val trackingId: Int = 0
 )
 
 interface IAIModel {
-    //    suspend fun detectFaces(frame: Bitmap, rotationDegrees: Int): List<FaceDetectedData>
     suspend fun calculateFaceVectors(frame: Bitmap): CalculateVectorsData
     suspend fun calculateFacesVectors(frame: Bitmap): List<CalculateVectorsData>
 }

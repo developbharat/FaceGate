@@ -12,14 +12,14 @@ import javax.inject.Inject
 class SearchFaceUseCase @Inject constructor(
     private val aiModel: IAIModel, private val faceDbRepository: IFaceDatabaseRepository
 ) {
-    operator fun invoke(frame: Bitmap): Flow<Resource<PersonFaceData>> = flow {
+    operator fun invoke(frame: Bitmap, minThreshold: Int, maxThreshold: Int): Flow<Resource<PersonFaceData>> = flow {
         try {
             emit(Resource.ResourceInProgress("Searching Face..."))
 
             // detect and calculate face vectors
             val detection = aiModel.calculateFaceVectors(frame)
-            val face = faceDbRepository.searchFace(detection)
-
+            val face = faceDbRepository.searchFace(detection, minThreshold = minThreshold, maxThreshold = maxThreshold)
+            
             emit(Resource.ResourceSuccess(face, "Face found."))
         } catch (ex: Exception) {
             emit(Resource.ResourceError(ex.localizedMessage ?: "Unknown Error occurred."))

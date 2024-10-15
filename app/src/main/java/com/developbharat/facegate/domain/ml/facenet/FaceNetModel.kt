@@ -19,10 +19,8 @@ const val IMAGE_SIZE_X = 512
 const val IMAGE_SIZE_Y = 512
 
 class FaceNetModel @Inject constructor(
-    private val appContext: Context,
-    private val globalOptions: GlobalOptions
-) :
-    IFaceNetModel {
+    private val appContext: Context, private val globalOptions: GlobalOptions
+) : IFaceNetModel {
     private val ortEnvironment: OrtEnvironment = OrtEnvironment.getEnvironment()
     private var ortSession: OrtSession? = null
     private var isModelLoaded: Boolean = false
@@ -39,10 +37,7 @@ class FaceNetModel @Inject constructor(
 
     private fun preProcess(bitmap: Bitmap): FloatBuffer {
         val imgData = FloatBuffer.allocate(
-            DIM_BATCH_SIZE
-                    * DIM_PIXEL_SIZE
-                    * IMAGE_SIZE_X
-                    * IMAGE_SIZE_Y
+            DIM_BATCH_SIZE * DIM_PIXEL_SIZE * IMAGE_SIZE_X * IMAGE_SIZE_Y
         )
         imgData.rewind()
         val stride = IMAGE_SIZE_X * IMAGE_SIZE_Y
@@ -91,10 +86,9 @@ class FaceNetModel @Inject constructor(
         val output = ortSession?.run(inputs)
         val processTimeMs = SystemClock.uptimeMillis() - startTime
 
-        val vectors = (output?.get(0)?.value as Array<DoubleArray>).first()
+        val vectors = (output?.get(0)?.value as Array<FloatArray>).first()
         return FaceNetResult(
-            vectors = vectors.toList(),
-            elapsedMillis = processTimeMs
+            vectors = vectors.toList().map { it.toDouble() }, elapsedMillis = processTimeMs
         )
     }
 
