@@ -1,32 +1,32 @@
 [versions]
 agp = "8.7.0-beta01"
-androidDriver = "2.0.2"
 desugar_jdk_libs = "2.1.2"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.6"
-activityCompose = "1.9.2"
-composeBom = "2024.09.02"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.9.3"
+composeBom = "2024.10.01"
 javaXInject = "1"
-gson = "2.10.1"
+gson = "2.11.0"
 hilt = "2.51.1"
 ksp = "2.0.0-1.0.22"
-composeNavigation = "2.8.1"
+composeNavigation = "2.8.3"
 hiltNavigation = "1.2.0"
 kotlinxSerializationJson = "1.6.3"
 kotlinxSerialization = "1.9.23"
-materialIconsExtended = "1.7.2"
+materialIconsExtended = "1.7.5"
 sqlcipher = "4.5.0"
-cameraX = "1.3.4"
+cameraX = "1.4.0"
 onnxruntimeAndroid = "latest.release"
 mlkitFaceDetection = "16.1.7"
 sqlite = "2.4.0"
+workRuntimeKtx = "2.10.0"
+hiltWork = "1.2.0"
 
 [libraries]
-sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "androidDriver" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
@@ -60,6 +60,10 @@ androidx-camera-extensions = { group = "androidx.camera", name = "camera-extensi
 onnxruntime-android = { module = "com.microsoft.onnxruntime:onnxruntime-android", version.ref = "onnxruntimeAndroid" }
 mlkit-face-detection = { module = "com.google.mlkit:face-detection", version.ref = "mlkitFaceDetection" }
 androidx-sqlite = { module = "androidx.sqlite:sqlite", version.ref = "sqlite" }
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workRuntimeKtx" }
+androidx-hilt-common = { group = "androidx.hilt", name = "hilt-common", version.ref = "hiltWork" }
+androidx-hilt-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hiltWork" }
+androidx-hilt-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltWork" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

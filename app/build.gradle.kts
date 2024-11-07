@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.developbharat.facegate"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.developbharat.facegate"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -100,4 +100,10 @@ dependencies {
     // https://onnxruntime.ai/docs/tutorials/mobile/#optimize-your-application
     implementation(libs.mlkit.face.detection)
     implementation(libs.onnxruntime.android)
+
+    // service workers
+    implementation(libs.androidx.hilt.common)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
+    implementation(libs.androidx.work.runtime.ktx)
 }
