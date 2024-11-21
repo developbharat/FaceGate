@@ -7,4 +7,5 @@ data class AttendanceState(
     val match: PersonFaceData? = null,
     val status: ResourceStatus = ResourceStatus(),
     val isScanPaused: Boolean = true,
+    val isCameraPermissionGranted: Boolean = false,
 )

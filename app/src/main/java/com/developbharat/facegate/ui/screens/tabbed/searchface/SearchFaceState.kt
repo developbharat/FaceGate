@@ -7,4 +7,5 @@ data class SearchFaceState(
     val match: PersonFaceData? = null,
     val status: ResourceStatus = ResourceStatus(),
     val isScanPaused: Boolean = false,
+    val isCameraPermissionGranted: Boolean = false
 )

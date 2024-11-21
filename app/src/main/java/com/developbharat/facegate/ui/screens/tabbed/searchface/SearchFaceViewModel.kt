@@ -1,8 +1,11 @@
 package com.developbharat.facegate.ui.screens.tabbed.searchface
 
+import android.content.Context
+import android.content.pm.PackageManager
 import androidx.camera.core.ImageProxy
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.developbharat.facegate.common.Resource
@@ -47,5 +50,16 @@ class SearchFaceViewModel @Inject constructor(
             // close frame
             frame.close()
         }.launchIn(viewModelScope)
+    }
+
+    fun checkAndUpdateCameraPermission(context: Context) {
+        val isGranted = isCameraPermissionGranted(context)
+        _state.value = _state.value.copy(isCameraPermissionGranted = isGranted)
+    }
+
+    private fun isCameraPermissionGranted(context: Context): Boolean {
+        return ContextCompat.checkSelfPermission(
+            context, android.Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
     }
 }

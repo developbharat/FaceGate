@@ -8,4 +8,5 @@ data class ScanFaceMatchState(
     val status: ResourceStatus = ResourceStatus(),
     val selectedPerson: Person,
     val match: PersonFaceData? = null,
+    val isCameraPermissionGranted: Boolean = false,
 )
