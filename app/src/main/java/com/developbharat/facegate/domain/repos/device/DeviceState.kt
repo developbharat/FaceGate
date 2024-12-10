@@ -5,6 +5,10 @@ import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.core.content.ContextCompat
+import com.developbharat.facegate.domain.models.settings.AdvancedOptions
+import com.developbharat.facegate.domain.models.settings.AttendanceSheetOptions
+import com.developbharat.facegate.domain.models.settings.FaceMatchOptions
+import com.developbharat.facegate.domain.models.settings.GlobalOptions
 import javax.inject.Inject
 
 class DeviceState @Inject constructor(private val context: Context) : IDeviceState {
@@ -28,5 +32,26 @@ class DeviceState @Inject constructor(private val context: Context) : IDeviceSta
             context,
             android.Manifest.permission.CAMERA
         ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun useGlobalOptions(): GlobalOptions {
+        return GlobalOptions()
+//        TODO("Not yet implemented")
+    }
+
+    override fun setGlobalOptions(options: GlobalOptions) {
+        TODO("Not yet implemented")
+    }
+
+    override fun useAdvancedOptions(): AdvancedOptions {
+        TODO("Not yet implemented")
+    }
+
+    override fun useAttendanceSheetOptions(): AttendanceSheetOptions {
+        TODO("Not yet implemented")
+    }
+
+    override fun useFaceMatchOptions(): FaceMatchOptions {
+        TODO("Not yet implemented")
     }
 }

@@ -91,6 +91,9 @@ dependencies {
     implementation(libs.androidx.camera.extensions)
 
     // sqlite database
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
     implementation(libs.sqlcipher)
     implementation(libs.androidx.sqlite)
 

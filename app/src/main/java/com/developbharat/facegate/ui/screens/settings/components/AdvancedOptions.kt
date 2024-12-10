@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun AdvancedOptions() {
+
+
     Column {
         Text(
             "Advanced Options",

@@ -10,10 +10,4 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor() : ViewModel() {
     private val _state = mutableStateOf(HomeScreenState())
     val state: State<HomeScreenState> = _state
-
-
-    fun isFacenetModelDownloaded(): Boolean {
-        // TOOD: implement logic to check if current mentioned version is downloaded offline.
-        return false
-    }
 }

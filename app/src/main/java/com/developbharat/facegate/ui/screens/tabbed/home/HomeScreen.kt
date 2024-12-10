@@ -10,7 +10,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -19,7 +18,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.developbharat.facegate.R
 import com.developbharat.facegate.common.Screens
-import com.developbharat.facegate.coroutines.DownloadFacenetModelWorker
 import com.developbharat.facegate.ui.components.SmallTopBar
 import com.developbharat.facegate.ui.components.TabbedBottomBar
 
@@ -28,14 +26,6 @@ fun HomeScreen(
     navController: NavController, viewModel: HomeViewModel = hiltViewModel(), context: Context = LocalContext.current
 ) {
     val state = viewModel.state.value
-
-    // schedule download of model if not downloaded.
-    LaunchedEffect(Unit) {
-        if (!viewModel.isFacenetModelDownloaded()) {
-            DownloadFacenetModelWorker.scheduleOneTimeTask(context)
-        }
-    }
-
 
     Scaffold(topBar = {
         SmallTopBar(

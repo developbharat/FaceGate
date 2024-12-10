@@ -1,10 +1,9 @@
 package com.developbharat.facegate.domain.repos.batch
 
 import com.developbharat.facegate.domain.models.Batch
-import com.developbharat.facegate.domain.models.Person
 
 interface IBatchRepository {
-    suspend fun listBatchPeople(): List<Person>
-    suspend fun createBatch(batch: Batch)
-    suspend fun setBatchActive()
+    suspend fun listBatches(): List<Batch>
+    suspend fun createBatch(vararg batches: Batch)
+    suspend fun deleteBatch(batch: Batch)
 }

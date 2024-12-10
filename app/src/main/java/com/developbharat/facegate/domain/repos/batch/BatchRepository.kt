@@ -1,26 +1,21 @@
 package com.developbharat.facegate.domain.repos.batch
 
-import android.graphics.Bitmap
-import com.developbharat.facegate.common.toBase64
+import com.developbharat.facegate.domain.data.database.MainDatabase
 import com.developbharat.facegate.domain.models.Batch
-import com.developbharat.facegate.domain.models.Person
+import javax.inject.Inject
 
-class BatchRepository : IBatchRepository {
-    override suspend fun listBatchPeople(): List<Person> {
-        return listOf(
-            Person(
-                id = 1,
-                name = "John Doe",
-                thumbnail = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888).toBase64()
-            )
-        )
+class BatchRepository @Inject constructor(
+    val db: MainDatabase
+) : IBatchRepository {
+    override suspend fun listBatches(): List<Batch> {
+        return db.batchDao().list().map { it.toBatch() }
     }
 
-    override suspend fun createBatch(batch: Batch) {
-        TODO("Not yet implemented")
+    override suspend fun createBatch(vararg batches: Batch) {
+        db.batchDao().create(*batches.map { it.toBatchRecord() }.toTypedArray())
     }
 
-    override suspend fun setBatchActive() {
-        TODO("Not yet implemented")
+    override suspend fun deleteBatch(batch: Batch) {
+        db.batchDao().delete(batch.toBatchRecord())
     }
 }

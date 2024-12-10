@@ -23,6 +23,7 @@ import com.developbharat.facegate.ui.components.SmallTopBar
 
 @Composable
 fun CreateBatchScreen(navController: NavController, viewModel: CreateBatchViewModel = hiltViewModel()) {
+    val state = viewModel.state.value
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 
@@ -30,7 +31,8 @@ fun CreateBatchScreen(navController: NavController, viewModel: CreateBatchViewMo
     Scaffold(topBar = {
         SmallTopBar(
             title = "Create Batch",
-            subtitle = "Batch helps to group faces"
+            subtitle = "Batch helps to group faces",
+            status = state.status
         )
     }) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
@@ -52,7 +54,7 @@ fun CreateBatchScreen(navController: NavController, viewModel: CreateBatchViewMo
                 Spacer(modifier = Modifier.height(5.dp))
 
                 Button(modifier = Modifier.fillMaxWidth(), onClick = {
-
+                    viewModel.createBatch(name, description)
                 }) {
                     Text("Create Batch")
                 }

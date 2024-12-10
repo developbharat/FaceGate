@@ -6,8 +6,7 @@ import ai.onnxruntime.OrtSession
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.SystemClock
-import com.developbharat.facegate.domain.models.settings.GlobalOptions
-import java.io.File
+import com.developbharat.facegate.R
 import java.nio.FloatBuffer
 import java.util.Collections
 import javax.inject.Inject
@@ -19,7 +18,7 @@ const val IMAGE_SIZE_X = 512
 const val IMAGE_SIZE_Y = 512
 
 class FaceNetModel @Inject constructor(
-    private val appContext: Context, private val globalOptions: GlobalOptions
+    private val appContext: Context
 ) : IFaceNetModel {
     private val ortEnvironment: OrtEnvironment = OrtEnvironment.getEnvironment()
     private var ortSession: OrtSession? = null
@@ -29,8 +28,8 @@ class FaceNetModel @Inject constructor(
         // Exit if model is already loaded.
         if (isModelLoaded) return
 
-        val file = File(appContext.filesDir, globalOptions.modelReleaseVersion + ".onnx")
-        val bytes = file.readBytes()
+        // Load facenet model for face detection
+        val bytes = appContext.resources.openRawResource(R.raw.facenet).readBytes()
         ortSession = ortEnvironment.createSession(bytes)
         isModelLoaded = true
     }

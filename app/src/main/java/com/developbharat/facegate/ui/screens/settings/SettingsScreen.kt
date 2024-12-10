@@ -8,10 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.developbharat.facegate.ui.components.SmallTopBar
+import com.developbharat.facegate.ui.screens.settings.GlobalOptions.GlobalOptions
 import com.developbharat.facegate.ui.screens.settings.components.AdvancedOptions
 import com.developbharat.facegate.ui.screens.settings.components.AttendanceOptions
 import com.developbharat.facegate.ui.screens.settings.components.FaceMatchOptions
-import com.developbharat.facegate.ui.screens.settings.components.GlobalOptions
 import com.developbharat.facegate.ui.screens.settings.components.SettingsSectionSpacer
 
 @Composable
