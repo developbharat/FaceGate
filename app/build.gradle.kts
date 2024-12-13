@@ -60,6 +60,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    // back gesture navigation
+    implementation(libs.androidx.activity)
+
     // material3
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material.icons.extended)
