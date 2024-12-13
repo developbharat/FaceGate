@@ -11,6 +11,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,6 +28,10 @@ fun CreateBatchScreen(navController: NavController, viewModel: CreateBatchViewMo
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 
+    LaunchedEffect(state.status.isSuccess) {
+        name = ""
+        description = ""
+    }
 
     Scaffold(topBar = {
         SmallTopBar(

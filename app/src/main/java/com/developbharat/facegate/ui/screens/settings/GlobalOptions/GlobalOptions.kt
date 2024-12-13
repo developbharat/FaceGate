@@ -39,7 +39,7 @@ fun GlobalOptions(options: GlobalOptions, onUpdate: (options: GlobalOptions) -> 
                     onBatchSelected = { onUpdate(options.copy(selectedBatchId = it.id)) })
             }
         }
-
+        // TODO: fix this hardcoded text "No Batch selected"
         ListItem(
             headlineContent = { Text("Selected Batch") },
             supportingContent = { Text("No Batch selected!") },

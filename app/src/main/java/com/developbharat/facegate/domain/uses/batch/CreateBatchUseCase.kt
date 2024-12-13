@@ -14,7 +14,7 @@ class CreateBatchUseCase @Inject constructor(
         try {
             emit(Resource.ResourceInProgress("Creating batch..."))
             batchRepository.createBatch(batch)
-            emit(Resource.ResourceSuccess(null))
+            emit(Resource.ResourceSuccess(null, "Batch created successful."))
         } catch (ex: Exception) {
             emit(Resource.ResourceError(ex.localizedMessage ?: "Unknown error occurred."))
         }
