@@ -1,19 +1,16 @@
 package com.developbharat.facegate.ui.screens.settings.components
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.developbharat.facegate.domain.models.settings.AdvancedOptions
+import com.developbharat.facegate.domain.models.settings.FaceDetectionMode
 
 @Composable
-fun AdvancedOptions() {
-
-
+fun AdvancedOptions(options: AdvancedOptions, onUpdate: (options: AdvancedOptions) -> Unit) {
     Column {
         Text(
             "Advanced Options",
@@ -23,27 +20,23 @@ fun AdvancedOptions() {
 
         ListItem(
             headlineContent = { Text("Face Detection Mode") },
-            supportingContent = { Text("Selected: Performance Mode / Accurate Mode") },
+            supportingContent = {
+                Text(if (options.faceDetectionMode == FaceDetectionMode.ACCURATE) "Accurate Mode" else "Performance Mode")
+            },
             trailingContent = {
-                IconButton(onClick = {}) {
-                    Icon(
-                        Icons.Outlined.Edit,
-                        contentDescription = "Set Performance Mode or Accurate Mode"
-                    )
-                }
+                Switch(
+                    checked = options.faceDetectionMode == FaceDetectionMode.ACCURATE,
+                    onCheckedChange = { onUpdate(options.copy(faceDetectionMode = if (options.faceDetectionMode == FaceDetectionMode.ACCURATE) FaceDetectionMode.FAST else FaceDetectionMode.ACCURATE)) })
             }
         )
 
         ListItem(
             headlineContent = { Text("Face Tracking") },
-            supportingContent = { Text("Enabled") },
+            supportingContent = { Text("Selected: " + if (options.isFaceTrackingEnabled) "Enabled" else "Disabled") },
             trailingContent = {
-                IconButton(onClick = {}) {
-                    Icon(
-                        Icons.Outlined.Edit,
-                        contentDescription = "Enable or Disable face tracking in multiple frames"
-                    )
-                }
+                Switch(
+                    checked = options.isFaceTrackingEnabled,
+                    onCheckedChange = { onUpdate(options.copy(isFaceTrackingEnabled = !options.isFaceTrackingEnabled)) })
             }
         )
     }

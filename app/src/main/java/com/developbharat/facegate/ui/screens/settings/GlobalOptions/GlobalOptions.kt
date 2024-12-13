@@ -16,11 +16,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.developbharat.facegate.ui.screens.settings.GlobalOptions.components.SelectBatchSheet
+import com.developbharat.facegate.domain.models.settings.GlobalOptions
+import com.developbharat.facegate.ui.screens.settings.GlobalOptions.components.SelectBatch.SelectBatchSheet
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GlobalOptions() {
+fun GlobalOptions(options: GlobalOptions, onUpdate: (options: GlobalOptions) -> Unit) {
     var showSelectBatchSheet by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
@@ -31,10 +32,12 @@ fun GlobalOptions() {
 
         if (showSelectBatchSheet) {
             ModalBottomSheet(
-                onDismissRequest = { showSelectBatchSheet = false },
-                sheetState = sheetState
-                // TODO: update it from view model
-            ) { SelectBatchSheet(batches = emptyList(), selectedBatchId = null, onBatchSelected = {}) }
+                onDismissRequest = { showSelectBatchSheet = false }, sheetState = sheetState
+            ) {
+                SelectBatchSheet(
+                    selectedBatchId = options.selectedBatchId,
+                    onBatchSelected = { onUpdate(options.copy(selectedBatchId = it.id)) })
+            }
         }
 
         ListItem(

@@ -16,11 +16,16 @@ import com.developbharat.facegate.domain.repos.facedb.FaceDatabaseRepository
 import com.developbharat.facegate.domain.repos.facedb.IFaceDatabaseRepository
 import com.developbharat.facegate.domain.repos.people.IPeopleRepository
 import com.developbharat.facegate.domain.repos.people.PeopleRepository
+import com.developbharat.facegate.domain.store.ISharedStore
+import com.developbharat.facegate.domain.store.SharedStore
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.text.DateFormat
 import javax.inject.Singleton
 
 @Module
@@ -32,6 +37,18 @@ object RootModule {
         return AIModel(faceNetModel = faceNetModel)
     }
 
+    @Provides
+    @Singleton
+    fun providesGson(): Gson {
+        return GsonBuilder().setDateFormat(DateFormat.FULL, DateFormat.FULL).setPrettyPrinting().create()
+    }
+
+    @Provides
+    @Singleton
+    fun providesSharedStore(@ApplicationContext appContext: Context, gson: Gson): ISharedStore {
+        val prefs = appContext.getSharedPreferences("SHARED_STORE", Context.MODE_PRIVATE)
+        return SharedStore(sharedPreferences = prefs, gson = gson)
+    }
 
     @Provides
     @Singleton

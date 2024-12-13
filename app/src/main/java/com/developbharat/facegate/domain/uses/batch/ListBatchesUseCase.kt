@@ -7,9 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class ListBatchesUseCase @Inject constructor(
-    private val batchRepository: IBatchRepository
-) {
+class ListBatchesUseCase @Inject constructor(private val batchRepository: IBatchRepository) {
     operator fun invoke(): Flow<Resource<List<Batch>>> = flow {
         try {
             emit(Resource.ResourceInProgress("Creating batch..."))
